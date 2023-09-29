@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block main %}
+
+    {% if error_flag %}
+        <div>
+            <p style="color: red;">不正な操作を検知しました。最初からやり直してください。</p>
+        </div>
+	{% endif %}
+
+    <div>
+        <p>以下のデータを学習してください</p>
+    </div>
+
+    <div>
+        <table border="1" class="dataframe">
+            <thead> 
+                <tr style="text-align: right;"> 
+                    <th></th> 
+                    <th>がく片の長さ</th> 
+                    <th>がく片の幅</th> 
+                    <th>花びらの長さ</th> 
+                    <th>花びらの幅</th> 
+                    <th>花の種類</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for tra in train %}
+                <tr>
+                    <th>{{ loop.index }}</th> 
+                    {% for t in tra %}
+                        <td>{{ t }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <p>次に、以下のデータからアヤメの種類を予測してください(選択肢より一つだけ選択)</p>
+    </div>
+
+    <div>
+        <form action="/iris" method="post">
+            <table border="1" class="dataframe">
+                <thead> 
+                    <tr style="text-align: right;"> 
+                        <th></th> 
+                        <th>がく片の長さ</th> 
+                        <th>がく片の幅</th> 
+                        <th>花びらの長さ</th> 
+                        <th>花びらの幅</th> 
+                        <th>花の種類(あなたの予測値)</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tes in test %}
+                    <tr>
+                        <th>{{ loop.index }}</th> 
+                        {% for t in tes %}
+                            <td>{{ t }}</td>
+                        {% endfor %}
+                        <td>
+                            <select name="pred">
+                                <option>setosa</option>
+                                <option>versicolor</option>
+                                <option>virginica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+    <div>
+        <button type="submit">結果発表を見る</button>
+    </form>
+        <button type="button" onclick="location.href='./'">ホームに戻る</button>
+    </div>
+
+{% endblock %}

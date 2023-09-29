@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block main %}
+
+    {% if error_flag %}
+        <div>
+            <p>全ての欄を正確に入力してください</p>
+        </div>
+	{% endif %}
+
+    <div>
+        <form action="/iris" method="post">
+            <!-- formでmain.pyにデータを送るには、inputのnameをfastapiの引数に対応づける -->
+            <input name="sepal_length" type="number">
+            <input name="sepal_width" type="number">
+            <input name="petal_length" type="number">
+            <input name="petal_width" type="number">
+            <button type="submit">predict</button>
+        </form>
+    </div>
+
+    <div>
+        <p>prediction:{{ predict }}</p>
+    </div>
+
+    <div>
+          <!-- 直前のページに戻る -->
+        <button onclick="history.back()">戻る</button>
+    </div>
+
+{% endblock %}

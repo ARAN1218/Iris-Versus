@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<div>
+    <table border="1" class="dataframe">
+        <thead> 
+            <tr style="text-align: right;"> 
+                <th></th> 
+                <th>あなたの予測値</th>
+                <th>AIの予測値</th>
+                <th>正解</th> 
+                <th>あなたの正誤</th>
+                <th>AIの正誤</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in result %}
+            <tr>
+                <th>{{ loop.index }}</th> 
+                {% for r in res %}
+                    <td>{{ r }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>結果発表</h3>
+    <p>あなたの正解率：{{ accuracy_you }}</p>
+    <p>AIの正解率：{{ accuracy_ai }}</p>
+    <p>この勝負の勝者は...<span style="color: red;">{{ winner }}</span>です！</p>
+</div>
+
+<div>
+    いかがでしたか？
+    AIに負けないように力をつけていきましょ〜🐦
+</div>
+
+<div>
+    <button type="button" onclick="location.href='./iris'">もう一度挑戦する</button>
+    <button type="button" onclick="location.href='./'">ホームに戻る</button>
+</div>
+
+{% endblock %}
